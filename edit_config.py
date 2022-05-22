@@ -22,6 +22,7 @@ def edit(train_dir, eval_dir, batch_size, checkpoint, label_map):
         text_format.Merge(proto_str, pipeline_config)  
     
     training_files = glob.glob(train_dir + '/*.tfrecord')
+    print("Len training files", len(training_files))
     evaluation_files = glob.glob(eval_dir + '/*.tfrecord')
 
     pipeline_config.train_config.batch_size = batch_size

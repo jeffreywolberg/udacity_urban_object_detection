@@ -13,20 +13,26 @@ from utils import get_module_logger
 
 def split(data_dir):
     files = glob.glob(data_dir + "/training_and_validation/*")
-#     print(files)
-    num_files = len(files)
-    train = .6
-    val = .2
-    test = .2
     for i, file in enumerate(files):
         rand_num = random.random()
-        if rand_num < .6:
+        if rand_num < .80:
             shutil.move(file, data_dir + "/train/" + basename(file))
-        elif rand_num <.8:
-            shutil.move(file, data_dir + "/val/" + basename(file))
         else:
-            print(file, data_dir + "/test/" + basename(file))
-            shutil.move(file, data_dir + "/test/" + basename(file))
+            shutil.move(file, data_dir + "/val/" + basename(file))
+
+def undo_split(data_dir):
+    tf_test_records = ["segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord", "segment-12012663867578114640_820_000_840_000_with_camera_labels.tfrecord", "segment-12200383401366682847_2552_140_2572_140_with_camera_labels.tfrecord"]
+    for name in ["/train", "/val", "/test"]:
+        files = glob.glob(data_dir + name + "/*")
+        num_files = len(files)
+        print(f"{num_files} files in {name} folder")
+        for file in files:
+            if name == "/test" and basename(file) in tf_test_records:
+                continue
+            shutil.move(file, data_dir + "/training_and_validation/" + basename(file))
+
+    
+    
         
     """
     Create three splits from the processed records. The files should be moved to new folders in the 
@@ -49,3 +55,4 @@ if __name__ == "__main__":
     logger = get_module_logger(__name__)
     logger.info('Creating splits...')
     split(args.data_dir)
+#     undo_split(args.data_dir)
