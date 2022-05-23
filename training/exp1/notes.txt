@@ -1,0 +1,4 @@
+Changed the optimizer to adam instead of a momentum optimizer
+Added two data augmentations:
+- random_image_scale
+- random_adjust_brightness
