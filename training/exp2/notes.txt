@@ -1,0 +1,1 @@
+Used an efficientDet backbone, in addition to the augmentations and optimizer (adam) used in exp1
