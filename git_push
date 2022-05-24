@@ -1,0 +1,7 @@
+#!/usr/bin/expect
+spawn /usr/bin/git push origin master
+expect "Username for 'http://github.com': "
+send "jeffreywolberg\n"
+expect "Password for 'https://jeffreywolberg@github.com': "
+send "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\n"
+expect "wait"
